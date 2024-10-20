@@ -139,3 +139,57 @@ cat /var/lib/dpkg/info/bandit7.password
 >morbNTDKSW6jIlUc0ym0dMaLn0lFVAaj
 ### Approach used
 After connecting to the server we will just use the find command to find a file with user name 'bandit7' and in group 'bandit6' with a size of 33 bytes. We will get a big list of files and we just need to find a location where ' permission denied' is not written. On searching we will find '/var/lib/dpkg/info/bandit7.password' and then we will just use 'cat' command. We use cd / command to go to root directory as the file which has password is somewhere in the sever whose two alternate ways are shown to retrive the password in the commands above.
+
+# Level 7 → Level 8
+### Commands used
+```
+ssh bandit7@bandit.labs.overthewire.org -p 2220
+ls
+cat data.txt | grep "millionth"
+```
+
+**or**
+```
+ssh bandit7@bandit.labs.overthewire.org -p 2220
+ls
+grep "millionth" data.txt
+```
+
+### Flag
+>dfwvzFQi4mU0wfNbF0e9RoWskMLg7eEc
+### Approach used
+After using 'ls' command we will get only one file named 'data.txt'. Now by using 'cat' and 'grep' command together, we will find the word 'millionth' and the password is written in front of it. We can also accomplish it by using only grep and file name.
+### Resources used
+learnt about grep from [Grep Command in Linux ](https://www.freecodecamp.org/news/grep-command-in-linux-usage-options-and-syntax-examples/#:~:text=grep%20is%20short%20for%20%22global,a%20powerful%20command%20to%20use.) or use the command 'man grep' to know more about grep in the terminal only.
+
+# Level 8 → Level 9
+### Commands used
+```
+ssh bandit8@bandit.labs.overthewire.org -p 2220
+ls
+cat data.txt | sort | uniq -c
+```
+**or**
+
+`sort data.txt | uniq -u`
+
+### Flag
+>4CKMh1JI91bUIZZPXDqGanal4xvAg0JM
+### Approach used
+After listing the files we find the file 'data.txt'. Now we use 'cat' to read the file with using commands like 'sort' to sort the identical texts and 'uniq -c' to to sort all texts lines which are present only once. We will find only 1 text that has appeared once so that is the password.
+### Resource used
+we can use commands 'man sort' and 'man uniq' to know more about them in the terminal itself.
+
+# Level 9 → Level 10
+### Commands used
+```
+ssh bandit9@bandit.labs.overthewire.org -p 2220
+ls
+strings data.txt | grep =
+```
+### Flag
+>FGUWS1lLVJrxX9kMYMmlN4MgbpfMiqey
+### Approach used
+Using the 'cat' command here is not suitable as the file is not a human readable file, so instead we are using the ' strings command to use it to find readable string characters and also using the 'grep' command to find text with '='. We will find texts with equal to in them and one of them is the password.
+### Resources used
+We can learn about 'strings' command from '[Linux strings command](https://www.javatpoint.com/linux-strings-command)'
