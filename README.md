@@ -193,3 +193,31 @@ strings data.txt | grep =
 Using the 'cat' command here is not suitable as the file is not a human readable file, so instead we are using the ' strings command to use it to find readable string characters and also using the 'grep' command to find text with '='. We will find texts with equal to in them and one of them is the password.
 ### Resources used
 We can learn about 'strings' command from '[Linux strings command](https://www.javatpoint.com/linux-strings-command)'
+
+# Level 10 → Level 11
+### Commands used
+```
+ssh bandit10@bandit.labs.overthewire.org -p 2220
+ls
+cat data.txt | base64 -d     or   base64 -d data.txt
+```
+### Flag
+>dtR173fZKb0RRsDFSGsg2RWnpNVj3qRr
+### Approach used
+When we use ' cat data.txt' we can easily see that the file is in base64 because the text is ending with two '='(which tells us that it is base64). So now we use 'cat' with the tool base64 and using '-d' to decode it and get the password.
+### Resources used 
+using the command 'man base64'.
+
+# Level 11 → Level 12
+### Commands used
+```
+ssh bandit11@bandit.labs.overthewire.org -p 2220
+ls
+cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+```
+### Flag
+>7x16WNeHI15YkIhWsfFIqoognUTyj9Q4
+### Approach used
+After listing the files we will use 'cat' command with tool 'tr' and keeping values ('A-Za-z' 'N-ZA-Mn-za-m') to use rot13 on the text and get our password.
+### Resouces used
+use 'man tr' to learn about 'tr' tool and [ROT13 Wikipedia](https://en.wikipedia.org/wiki/ROT13) to learn about rot13.
