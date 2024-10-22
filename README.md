@@ -274,3 +274,54 @@ cat data8
 First I entered the directory 'tmp' then made a file using the 'mkdir' command. Using the copy command 'cp', I copied the file to the 'hrs' directory created by me. then used 'cat' command with the tool 'xxd' to reverse engineer the hexdump file and move it to file named 'hex'. After identifying the file type of 'hex', we will see that it is a gzip file which is very similar to zip file in windows which means we just have to extract it. So we rename 'hex' to 'hex.gz' and then use the gzip tool to decompress the 'hex.gz' file. We will again check the file type of the hex file and see that it is a bzip2 file. So we will again rename the file from 'hex' to 'hex.bz2' and then use the bzip2 tool to decompress the file. Again we will check the file type of the hex file and it is gzip again so same process again after that when we check the file type, this time it is a 'tar'(compressed archive file) file so we will use tar tool with '-xf', where 'x' basically extracts file from archive and 'f' specifies the filename of the archive. We will get a 'data5.bin' file. Again this is a tar file so same step. The we will get 'data6.bin' which a bzip2 file so we will do the same process we did earlier and then again check the file type of the result, which gives us data6.bin file which is in tar format so we will extract it again. This time we will get 'data8.bin' file which is in gzip, so we extract it and get an ASCII file named 'data8'. now, we will just read the file and get the password.
 ### Resources used
 Manual page of gzip, bzip2, tar, mkdir, [Hex dump on Wikipedia](https://en.wikipedia.org/wiki/Hex_dump) and some resources related to extracting files.
+
+# Level 13 → Level 14
+### Commands used
+```
+ssh bandit13@bandit.labs.overthewire.org -p 2220
+ls
+ssh -i sshkey.private bandit14@localhost -p 2220
+cat /etc/bandit_pass/bandit14
+```
+### Flag
+>MU4VWeTyJk8ROof1qqmcBPaLh7lDCPvS
+### Approach used
+Using 'ls' we will only find one file named 'sshkey.private' which is basically a private key so we will use the ssh tool with '-i' which basically selects a file from which the identity (private key) for public key authentication is read. Also the user will be bandit14 and host name will be localhost as given in question and as always port should be 2220. After connecting to the neww ssh, just use cat command to read the file given in question i.e. /etc/bandit_pass/bandit14. We will get the password.
+### Resources used
+Manual page of ssh and some forums on using keys as an alternative for password to connect to ssh.
+
+# Level 14 → Level 15
+### Commands used
+```
+ssh bandit13@bandit.labs.overthewire.org -p 2220
+ls
+ssh -i sshkey.private bandit14@localhost -p 2220
+nc localhost 30000
+(put the password from last level only)
+```
+or
+```
+ssh bandit14@bandit.labs.overthewire.org -p 2220
+telnet localhost 30000
+MU4VWeTyJk8ROof1qqmcBPaLh7lDCPvS(put the password from last level only)
+```
+### Flag
+>8xCjnmgoKbGLhHFAZlGE5Tmu4M2tKJQo
+### Approach used
+While doing Level 13 → Level 14 and after reading the password, we can continue from there only and use 'nc' command to connect to localhost using port 30000 and there we need to paste the password from last level to automatically get the next password. Here nc and telnet command both works similar.
+### Resources used
+manual page of nc and [The netcat Command in Linux](https://www.tutorialspoint.com/the-netcat-command-in-linux#:~:text=The%20netcat%20command%2C%20also%20known,of%20other%20network%2Drelated%20tasks.)
+
+# Level 15 → Level 16
+### Commands used
+```
+ssh bandit15@bandit.labs.overthewire.org -p 2220
+openssl s_client -connect localhost:30001
+(Enter the password from last level)
+```
+### Flag
+>kSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx
+### Approach used
+As telnet and nc don't use encryption openssl is preffered over it.After connecting to the ssh, we use the openssl tool with 's_client' which basically tells the server we need to connect to. The localhost(server) which is ported to 30001. Then just enter the password from last level to get the password of next level.
+### Resources used
+manual page of openssl and s_client and the helpful reading material.
